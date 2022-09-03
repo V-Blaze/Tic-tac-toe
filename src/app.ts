@@ -8,6 +8,8 @@ const playerO = document.querySelector<HTMLDivElement>('.player-o');
 type Turn = 'X' | 'O'
 
 let turn: Turn = 'X'
+let Xscore:number = 0
+let Oscore:number = 0
 
 
 const main = (): void => {
@@ -50,10 +52,23 @@ const playGame = (): void => {
 }
 
 const wonGame = ():void =>{
+
+    if(turn == 'X') Xscore++
+    else{
+        Oscore++
+    }
+    
+    // console.log(`this is x-score ${Xscore} - this is o-score ${Oscore}`)
     
     const winningMsg = document.querySelector<HTMLElement>('.winner-message');
     if(winningMsg) winningMsg.textContent = `${turn} WON THE GAME!!!`
     winner?.classList.remove('invisible')
+
+    const playerXScore = document.querySelector<HTMLElement>('.x-score');
+    const playerOScore = document.querySelector<HTMLElement>('.o-score');
+
+    if(playerXScore) playerXScore.textContent = `${Xscore}`
+    if(playerOScore) playerOScore.textContent = `${Oscore}`
 
     boxes.forEach((elem)=>{
         // console.log(elem.textContent)

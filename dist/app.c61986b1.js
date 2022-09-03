@@ -133,6 +133,8 @@ var button = document.querySelector('.btn');
 var playerX = document.querySelector('.player-x');
 var playerO = document.querySelector('.player-o');
 var turn = 'X';
+var Xscore = 0;
+var Oscore = 0;
 
 var main = function main() {
   playGame();
@@ -185,9 +187,17 @@ var playGame = function playGame() {
 };
 
 var wonGame = function wonGame() {
+  if (turn == 'X') Xscore++;else {
+    Oscore++;
+  } // console.log(`this is x-score ${Xscore} - this is o-score ${Oscore}`)
+
   var winningMsg = document.querySelector('.winner-message');
   if (winningMsg) winningMsg.textContent = "".concat(turn, " WON THE GAME!!!");
   winner === null || winner === void 0 ? void 0 : winner.classList.remove('invisible');
+  var playerXScore = document.querySelector('.x-score');
+  var playerOScore = document.querySelector('.o-score');
+  if (playerXScore) playerXScore.textContent = "".concat(Xscore);
+  if (playerOScore) playerOScore.textContent = "".concat(Oscore);
   boxes.forEach(function (elem) {
     // console.log(elem.textContent)
     elem.classList.add('no-hover');
