@@ -29,7 +29,7 @@ window.onfocus = (e: Event):void =>{
     timmer()
     if(animate) animate.classList.add('animated-bg');
 }
-
+console.log()
 window.onblur =(e: Event):void =>{
     pausTime()
     if(animate) animate.classList.remove('animated-bg');
@@ -37,7 +37,7 @@ window.onblur =(e: Event):void =>{
 const playGame = (): void => {
     const controller = new AbortController()
     winner?.classList.add('invisible')
-    
+
 
     console.log('Game Started!')
         for(let box of boxes){
@@ -203,6 +203,9 @@ const pausTime = ():void =>{
 		clearInterval(secInterval);
 }
 
-button?.addEventListener('click', playGame)
+button?.addEventListener('click', (e: Event):void =>{
+    playGame()
+    timmer()
+})
 
 main()

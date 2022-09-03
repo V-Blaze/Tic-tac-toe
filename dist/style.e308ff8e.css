@@ -126,6 +126,10 @@ header div {
 
 }
 
+.winner-message {
+    color: white;
+}
+
 .invisible {
     visibility: hidden;
 }
@@ -319,7 +323,7 @@ footer {
 footer span {
     /* padding-top: 6px; */
     font-style: italic;
-    font-size: smaller;
+    font-size: x-small;
 }
 
 /*# sourceMappingURL=/style.e308ff8e.css.map */

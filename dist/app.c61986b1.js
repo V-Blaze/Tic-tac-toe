@@ -154,6 +154,8 @@ window.onfocus = function (e) {
   if (animate) animate.classList.add('animated-bg');
 };
 
+console.log();
+
 window.onblur = function (e) {
   pausTime();
   if (animate) animate.classList.remove('animated-bg');
@@ -321,7 +323,10 @@ var pausTime = function pausTime() {
   clearInterval(secInterval);
 };
 
-button === null || button === void 0 ? void 0 : button.addEventListener('click', playGame);
+button === null || button === void 0 ? void 0 : button.addEventListener('click', function (e) {
+  playGame();
+  timmer();
+});
 main();
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
