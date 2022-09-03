@@ -25,12 +25,17 @@ const playGame = (): void => {
         for(let box of boxes){
 
             box.textContent = ''
-            box.classList.remove('no-hover')
+            box.classList.remove('no-hover', 'x-bg', 'o-bg');
 
         box.addEventListener('click', (e)=>{
             box.classList.add('no-hover')
             const curBox: HTMLDivElement | null = document.querySelector(`#${box.id}`)
             if(curBox && curBox.innerText == '') curBox.innerText = turn;
+            if(turn == "X"){
+                if(curBox) curBox.classList.add('x-bg')
+            } else{
+                if(curBox) curBox.classList.add('o-bg')
+            }
             
             let boardFilled: boolean = checkBoard()
             if(boardFilled){
@@ -59,7 +64,6 @@ const wonGame = ():void =>{
     }
     
     // console.log(`this is x-score ${Xscore} - this is o-score ${Oscore}`)
-    
     const winningMsg = document.querySelector<HTMLElement>('.winner-message');
     if(winningMsg) winningMsg.textContent = `${turn} WON THE GAME!!!`
     winner?.classList.remove('invisible')
@@ -93,11 +97,11 @@ const switchTurn = (): void =>{
 const currentPlayer = ():void =>{
     if(turn == 'X'){
                 
-        playerX?.classList.add('active-player')
-        playerO?.classList.remove('active-player')
+        playerX?.classList.add('x-bg')
+        playerO?.classList.remove('o-bg')
     } else{
-        playerX?.classList.remove('active-player')
-        playerO?.classList.add('active-player')
+        playerX?.classList.remove('x-bg')
+        playerO?.classList.add('o-bg')
     }
 }
 

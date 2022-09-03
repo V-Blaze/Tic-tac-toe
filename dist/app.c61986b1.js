@@ -152,11 +152,18 @@ var playGame = function playGame() {
     var _loop = function _loop() {
       var box = _step.value;
       box.textContent = '';
-      box.classList.remove('no-hover');
+      box.classList.remove('no-hover', 'x-bg', 'o-bg');
       box.addEventListener('click', function (e) {
         box.classList.add('no-hover');
         var curBox = document.querySelector("#".concat(box.id));
         if (curBox && curBox.innerText == '') curBox.innerText = turn;
+
+        if (turn == "X") {
+          if (curBox) curBox.classList.add('x-bg');
+        } else {
+          if (curBox) curBox.classList.add('o-bg');
+        }
+
         var boardFilled = checkBoard();
 
         if (boardFilled) {
@@ -220,11 +227,11 @@ var switchTurn = function switchTurn() {
 
 var currentPlayer = function currentPlayer() {
   if (turn == 'X') {
-    playerX === null || playerX === void 0 ? void 0 : playerX.classList.add('active-player');
-    playerO === null || playerO === void 0 ? void 0 : playerO.classList.remove('active-player');
+    playerX === null || playerX === void 0 ? void 0 : playerX.classList.add('x-bg');
+    playerO === null || playerO === void 0 ? void 0 : playerO.classList.remove('o-bg');
   } else {
-    playerX === null || playerX === void 0 ? void 0 : playerX.classList.remove('active-player');
-    playerO === null || playerO === void 0 ? void 0 : playerO.classList.add('active-player');
+    playerX === null || playerX === void 0 ? void 0 : playerX.classList.remove('x-bg');
+    playerO === null || playerO === void 0 ? void 0 : playerO.classList.add('o-bg');
   }
 };
 
@@ -285,7 +292,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65534" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49225" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

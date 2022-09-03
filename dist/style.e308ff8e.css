@@ -215,7 +215,7 @@ header div {
     margin: 4px;
     font-weight: bolder;
     /* font-size: larger; */
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
     align-items: center;
     justify-content: center;
     border: solid 1.5px black;
@@ -232,6 +232,23 @@ header div {
     box-shadow: 0px 10px 20px 2px rgba(0, 255, 255, 0.7);
     background-position: left;
 
+}
+
+.x-bg {
+    background: linear-gradient(to left, rgba(9, 240, 140) 50%, rgba(0, 255, 255, 0.7) 50%) right;
+    background-size: 200%;
+    transition: .5s ease-out;
+    color: black;
+    font-weight: bolder;
+    /* background-position: left; */
+}
+
+.o-bg {
+    background: linear-gradient(to left, rgb(228, 13, 109) 50%, rgba(0, 255, 255, 0.7) 50%) right;
+    background-size: 200%;
+    transition: .5s ease-out;
+    color: black;
+    font-weight: bolder;
 }
 
 .btn:hover {
