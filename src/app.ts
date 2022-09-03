@@ -7,6 +7,7 @@ const playerO = document.querySelector<HTMLDivElement>('.player-o');
 const mins = document.querySelector<HTMLSpanElement>('#mins');
 const tens = document.querySelector<HTMLSpanElement>('#tens');
 const sec = document.querySelector<HTMLSpanElement>('#sec');
+const animate = document.querySelector<HTMLDivElement>('.hero')
 
 type Turn = 'X' | 'O'
 
@@ -24,11 +25,19 @@ const main = (): void => {
     playGame()
 }
 
+window.onfocus = (e: Event):void =>{
+    timmer()
+    if(animate) animate.classList.add('animated-bg');
+}
 
+window.onblur =(e: Event):void =>{
+    pausTime()
+    if(animate) animate.classList.remove('animated-bg');
+}
 const playGame = (): void => {
     const controller = new AbortController()
     winner?.classList.add('invisible')
-    timmer()
+    
 
     console.log('Game Started!')
         for(let box of boxes){

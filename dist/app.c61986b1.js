@@ -135,6 +135,7 @@ var playerO = document.querySelector('.player-o');
 var mins = document.querySelector('#mins');
 var tens = document.querySelector('#tens');
 var sec = document.querySelector('#sec');
+var animate = document.querySelector('.hero');
 var turn = 'X';
 var Xscore = 0;
 var Oscore = 0;
@@ -148,10 +149,19 @@ var main = function main() {
   playGame();
 };
 
+window.onfocus = function (e) {
+  timmer();
+  if (animate) animate.classList.add('animated-bg');
+};
+
+window.onblur = function (e) {
+  pausTime();
+  if (animate) animate.classList.remove('animated-bg');
+};
+
 var playGame = function playGame() {
   var controller = new AbortController();
   winner === null || winner === void 0 ? void 0 : winner.classList.add('invisible');
-  timmer();
   console.log('Game Started!');
 
   var _iterator = _createForOfIteratorHelper(boxes),
