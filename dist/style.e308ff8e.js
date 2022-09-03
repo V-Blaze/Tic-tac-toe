@@ -189,7 +189,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./assets\\images\\animation\\animate-1.png":[["animate-1.1a55446a.png","assets/images/animation/animate-1.png"],"assets/images/animation/animate-1.png"],"./assets\\images\\animation\\animate-2.png":[["animate-2.6d46743a.png","assets/images/animation/animate-2.png"],"assets/images/animation/animate-2.png"],"./assets\\images\\animation\\animate-3.png":[["animate-3.8e306819.png","assets/images/animation/animate-3.png"],"assets/images/animation/animate-3.png"],"./assets\\images\\animation\\animate-4.png":[["animate-4.de637638.png","assets/images/animation/animate-4.png"],"assets/images/animation/animate-4.png"],"./assets\\images\\animation\\animate-5.png":[["animate-5.e34818a1.png","assets/images/animation/animate-5.png"],"assets/images/animation/animate-5.png"],"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

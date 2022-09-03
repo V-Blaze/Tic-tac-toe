@@ -16,7 +16,7 @@ body {
 header {
     width: 100%;
     height: 8%;
-    background-color: black;
+    background: linear-gradient(235deg, rgba(6, 147, 227, 1) 0%, rgb(155, 81, 224) 100%);
     color: aliceblue;
     font-size: medium;
     text-align: center;
@@ -25,7 +25,9 @@ header {
     box-shadow: 0px 1px 2px rgba(0, 255, 255, 0.5),
         0px 2px 4px rgba(0, 255, 255, 0.5),
         0px 4px 8px rgba(0, 255, 255, 0.5),
-        0px 8px 16px rgba(0, 255, 255, 0.5);
+        0px 8px 16px rgba(0, 255, 255, 0.502);
+    /* border-bottom: solid 1px #00ffff80; */
+    border-radius: 4px;
 
 }
 
@@ -35,7 +37,7 @@ header div {
 
 .main {
     width: 100%;
-    height: 60%;
+    height: 74%;
     display: flex;
 
     justify-content: center;
@@ -259,10 +261,49 @@ header div {
     box-shadow: 0px 10px 20px 2px rgba(0, 255, 255, 0.7);
 }
 
+.animated-bg {
+    height: 84%;
+    /* max-height: 600px; */
+    width: 100%;
+    background-color: hsla(200, 40%, 30%, .4);
+    background-image:
+        url('assets/images/animation/animate-1.png'),
+        url('assets/images/animation/animate-2.png'),
+        url('assets/images/animation/animate-3.png'),
+        url('assets/images/animation/animate-4.png'),
+        url('assets/images/animation/animate-5.png');
+    background-repeat: repeat-x;
+    background-position:
+        0 20%,
+        0 100%,
+        0 50%,
+        0 100%,
+        0 0;
+    background-size:
+        2500px,
+        800px,
+        500px 200px,
+        1000px,
+        400px 260px;
+    animation: 50s para infinite linear;
+}
+
+@keyframes para {
+    100% {
+        background-position:
+            -5000px 20%,
+            -800px 95%,
+            500px 50%,
+            1000px 100%,
+            400px 0;
+    }
+}
+
 footer {
     width: 100%;
     height: 8%;
-    background-color: black;
+    background: linear-gradient(135deg, rgba(6, 147, 227, 1) 0%, rgb(155, 81, 224) 100%);
+    ;
     color: aliceblue;
     font-size: medium;
     text-align: center;
@@ -271,6 +312,8 @@ footer {
 
 }
 
-footer div {
-    padding-top: 6px;
+footer span {
+    /* padding-top: 6px; */
+    font-style: italic;
+    font-size: smaller;
 }

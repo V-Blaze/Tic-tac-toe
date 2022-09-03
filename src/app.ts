@@ -39,7 +39,9 @@ const playGame = (): void => {
         box.addEventListener('click', (e)=>{
             box.classList.add('no-hover')
             const curBox: HTMLDivElement | null = document.querySelector(`#${box.id}`)
-            if(curBox && curBox.innerText == '') curBox.innerText = turn;
+            if(curBox && curBox.innerText == '') {
+                curBox.innerText = turn;
+                
             if(turn == "X"){
                 if(curBox) curBox.classList.add('x-bg')
             } else{
@@ -51,7 +53,7 @@ const playGame = (): void => {
                 controller.abort()
                 gameOver()
                 pausTime()
-                console.log('Game box is filled')
+                // console.log('Game box is filled')
             }
 
             let winner: boolean = checkWinner()
@@ -62,7 +64,7 @@ const playGame = (): void => {
                 controller.abort()
             }
             currentPlayer()
-            
+        }
         },{signal: controller.signal})
     }
 }

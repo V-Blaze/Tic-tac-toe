@@ -165,30 +165,33 @@ var playGame = function playGame() {
       box.addEventListener('click', function (e) {
         box.classList.add('no-hover');
         var curBox = document.querySelector("#".concat(box.id));
-        if (curBox && curBox.innerText == '') curBox.innerText = turn;
 
-        if (turn == "X") {
-          if (curBox) curBox.classList.add('x-bg');
-        } else {
-          if (curBox) curBox.classList.add('o-bg');
+        if (curBox && curBox.innerText == '') {
+          curBox.innerText = turn;
+
+          if (turn == "X") {
+            if (curBox) curBox.classList.add('x-bg');
+          } else {
+            if (curBox) curBox.classList.add('o-bg');
+          }
+
+          var boardFilled = checkBoard();
+
+          if (boardFilled) {
+            controller.abort();
+            gameOver();
+            pausTime(); // console.log('Game box is filled')
+          }
+
+          var _winner = checkWinner();
+
+          if (!_winner) switchTurn();else {
+            wonGame();
+            pausTime();
+            controller.abort();
+          }
+          currentPlayer();
         }
-
-        var boardFilled = checkBoard();
-
-        if (boardFilled) {
-          controller.abort();
-          gameOver();
-          pausTime();
-          console.log('Game box is filled');
-        }
-
-        var winner = checkWinner();
-        if (!winner) switchTurn();else {
-          wonGame();
-          pausTime();
-          controller.abort();
-        }
-        currentPlayer();
       }, {
         signal: controller.signal
       });
