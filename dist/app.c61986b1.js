@@ -132,9 +132,17 @@ var winner = document.querySelector('.winner');
 var button = document.querySelector('.btn');
 var playerX = document.querySelector('.player-x');
 var playerO = document.querySelector('.player-o');
+var mins = document.querySelector('#mins');
+var tens = document.querySelector('#tens');
+var sec = document.querySelector('#sec');
 var turn = 'X';
 var Xscore = 0;
 var Oscore = 0;
+var minsCount = 0;
+var tensCount = 0;
+var secCount = 0;
+var tensInterval;
+var secInterval;
 
 var main = function main() {
   playGame();
@@ -143,6 +151,7 @@ var main = function main() {
 var playGame = function playGame() {
   var controller = new AbortController();
   winner === null || winner === void 0 ? void 0 : winner.classList.add('invisible');
+  timmer();
   console.log('Game Started!');
 
   var _iterator = _createForOfIteratorHelper(boxes),
@@ -169,12 +178,14 @@ var playGame = function playGame() {
         if (boardFilled) {
           controller.abort();
           gameOver();
+          pausTime();
           console.log('Game box is filled');
         }
 
         var winner = checkWinner();
         if (!winner) switchTurn();else {
           wonGame();
+          pausTime();
           controller.abort();
         }
         currentPlayer();
@@ -199,7 +210,7 @@ var wonGame = function wonGame() {
   } // console.log(`this is x-score ${Xscore} - this is o-score ${Oscore}`)
 
   var winningMsg = document.querySelector('.winner-message');
-  if (winningMsg) winningMsg.textContent = "".concat(turn, " WON THE GAME!!!");
+  if (winningMsg) winningMsg.textContent = "PLAYER ".concat(turn, " WON THE GAME!!!");
   winner === null || winner === void 0 ? void 0 : winner.classList.remove('invisible');
   var playerXScore = document.querySelector('.x-score');
   var playerOScore = document.querySelector('.o-score');
@@ -262,6 +273,41 @@ var getBoxes = function getBoxes() {
   return boxesContent;
 };
 
+var timmer = function timmer() {
+  tensInterval = setInterval(function (e) {
+    tensCount++;
+    if (tens) tens.innerText = tensCount.toString();
+
+    if (tensCount <= 9) {
+      if (tens) tens.innerText = '0' + tensCount;
+    }
+
+    if (tensCount == 60) {
+      minsCount++;
+      if (mins) mins.innerText = minsCount.toString();
+      tensCount = 0;
+      if (tens) tens.innerText = tensCount.toString();
+    }
+  }, 1000);
+  secInterval = setInterval(function (e) {
+    secCount++;
+    if (sec) sec.innerText = secCount.toString();
+
+    if (secCount >= 99) {
+      secCount = 0;
+    }
+
+    if (secCount <= 9) {
+      if (sec) sec.innerText = '0' + secCount;
+    }
+  });
+};
+
+var pausTime = function pausTime() {
+  clearInterval(tensInterval);
+  clearInterval(secInterval);
+};
+
 button === null || button === void 0 ? void 0 : button.addEventListener('click', playGame);
 main();
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -292,7 +338,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49225" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54466" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

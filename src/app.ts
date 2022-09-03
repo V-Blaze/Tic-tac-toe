@@ -4,12 +4,20 @@ const winner = document.querySelector<HTMLElement>('.winner');
 const button = document.querySelector<HTMLButtonElement>('.btn')
 const playerX = document.querySelector<HTMLDivElement>('.player-x');
 const playerO = document.querySelector<HTMLDivElement>('.player-o');
+const mins = document.querySelector<HTMLSpanElement>('#mins');
+const tens = document.querySelector<HTMLSpanElement>('#tens');
+const sec = document.querySelector<HTMLSpanElement>('#sec');
 
 type Turn = 'X' | 'O'
 
 let turn: Turn = 'X'
 let Xscore:number = 0
 let Oscore:number = 0
+let minsCount:number = 0;
+let tensCount:number = 0;
+let secCount:number = 0;
+let tensInterval: number | undefined;
+let secInterval: number | undefined;
 
 
 const main = (): void => {
@@ -20,6 +28,7 @@ const main = (): void => {
 const playGame = (): void => {
     const controller = new AbortController()
     winner?.classList.add('invisible')
+    timmer()
 
     console.log('Game Started!')
         for(let box of boxes){
@@ -41,6 +50,7 @@ const playGame = (): void => {
             if(boardFilled){
                 controller.abort()
                 gameOver()
+                pausTime()
                 console.log('Game box is filled')
             }
 
@@ -48,6 +58,7 @@ const playGame = (): void => {
             if(!winner) switchTurn()
             else{
                 wonGame()
+                pausTime()
                 controller.abort()
             }
             currentPlayer()
@@ -65,7 +76,7 @@ const wonGame = ():void =>{
     
     // console.log(`this is x-score ${Xscore} - this is o-score ${Oscore}`)
     const winningMsg = document.querySelector<HTMLElement>('.winner-message');
-    if(winningMsg) winningMsg.textContent = `${turn} WON THE GAME!!!`
+    if(winningMsg) winningMsg.textContent = `PLAYER ${turn} WON THE GAME!!!`
     winner?.classList.remove('invisible')
 
     const playerXScore = document.querySelector<HTMLElement>('.x-score');
@@ -142,6 +153,43 @@ const getBoxes = ():Array<string> =>{
         }
     }
     return boxesContent
+}
+
+const timmer = ():void =>{
+    tensInterval = setInterval((e: Event)=>{
+        tensCount++;
+        if(tens) tens.innerText = tensCount.toString();
+
+        if(tensCount <= 9){
+            if(tens) tens.innerText = '0' + tensCount
+        } 
+
+        if(tensCount == 60){
+            minsCount++
+            if(mins) mins.innerText = minsCount.toString()
+            tensCount = 0
+            if(tens) tens.innerText = tensCount.toString();
+        }
+    }, 1000);
+
+    secInterval = setInterval((e: Event)=>{
+        secCount++;
+        if(sec) sec.innerText = secCount.toString();
+
+        if(secCount >= 99) {
+            secCount = 0;
+        }
+        
+        if (secCount <= 9){
+            if(sec) sec.innerText = '0' + secCount;
+        }
+    })
+
+  
+}  
+const pausTime = ():void =>{
+        clearInterval(tensInterval);
+		clearInterval(secInterval);
 }
 
 button?.addEventListener('click', playGame)

@@ -74,6 +74,9 @@ header div {
     justify-content: center;
     align-items: center;
 } */
+#sec {
+    font-size: x-small;
+}
 
 .player-info {
     width: 40%;
