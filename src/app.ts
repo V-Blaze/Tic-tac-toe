@@ -2,6 +2,8 @@ const gameBoard = document.querySelector<HTMLDivElement>('#game-board');
 const boxes = document.querySelectorAll('.box') as NodeListOf<Element>
 const winner = document.querySelector<HTMLElement>('.winner');
 const button = document.querySelector<HTMLButtonElement>('.btn')
+const playerX = document.querySelector<HTMLDivElement>('.player-x');
+const playerO = document.querySelector<HTMLDivElement>('.player-o');
 
 type Turn = 'X' | 'O'
 
@@ -17,14 +19,19 @@ const playGame = (): void => {
     const controller = new AbortController()
     winner?.classList.add('invisible')
 
-    console.log('started')
+    console.log('Game Started!')
         for(let box of boxes){
+
             box.textContent = ''
+            box.classList.remove('no-hover')
+
         box.addEventListener('click', (e)=>{
+            box.classList.add('no-hover')
             const curBox: HTMLDivElement | null = document.querySelector(`#${box.id}`)
             if(curBox && curBox.innerText == '') curBox.innerText = turn;
             let winner: boolean = checkWinner()
             checkBoard()
+            currentPlayer()
             if(!winner) switchTurn()
             else{
                 wonGame()
@@ -42,7 +49,8 @@ const wonGame = ():void =>{
     winner?.classList.remove('invisible')
 
     boxes.forEach((elem)=>{
-        console.log(elem)
+        // console.log(elem.textContent)
+        elem.classList.add('no-hover')
     })
 }
 
@@ -51,6 +59,17 @@ const switchTurn = (): void =>{
         turn = 'O'
     }else if(turn == 'O'){
         turn = 'X'
+    }
+}
+
+const currentPlayer = ():void =>{
+    if(turn == 'X'){
+                
+        playerX?.classList.add('active-player')
+        playerO?.classList.remove('active-player')
+    } else{
+        playerX?.classList.remove('active-player')
+        playerO?.classList.add('active-player')
     }
 }
 
@@ -89,7 +108,6 @@ const getBoxes = ():Array<string> =>{
             boxesContent.push(boxText)
         }
     }
-    console.log(boxesContent)
     return boxesContent
 }
 

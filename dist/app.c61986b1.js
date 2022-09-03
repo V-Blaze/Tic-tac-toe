@@ -130,6 +130,8 @@ var gameBoard = document.querySelector('#game-board');
 var boxes = document.querySelectorAll('.box');
 var winner = document.querySelector('.winner');
 var button = document.querySelector('.btn');
+var playerX = document.querySelector('.player-x');
+var playerO = document.querySelector('.player-o');
 var turn = 'X';
 
 var main = function main() {
@@ -139,7 +141,7 @@ var main = function main() {
 var playGame = function playGame() {
   var controller = new AbortController();
   winner === null || winner === void 0 ? void 0 : winner.classList.add('invisible');
-  console.log('started');
+  console.log('Game Started!');
 
   var _iterator = _createForOfIteratorHelper(boxes),
       _step;
@@ -148,11 +150,14 @@ var playGame = function playGame() {
     var _loop = function _loop() {
       var box = _step.value;
       box.textContent = '';
+      box.classList.remove('no-hover');
       box.addEventListener('click', function (e) {
+        box.classList.add('no-hover');
         var curBox = document.querySelector("#".concat(box.id));
         if (curBox && curBox.innerText == '') curBox.innerText = turn;
         var winner = checkWinner();
         checkBoard();
+        currentPlayer();
         if (!winner) switchTurn();else {
           wonGame();
           controller.abort();
@@ -177,7 +182,8 @@ var wonGame = function wonGame() {
   if (winningMsg) winningMsg.textContent = "".concat(turn, " WON THE GAME!!!");
   winner === null || winner === void 0 ? void 0 : winner.classList.remove('invisible');
   boxes.forEach(function (elem) {
-    console.log(elem);
+    // console.log(elem.textContent)
+    elem.classList.add('no-hover');
   });
 };
 
@@ -186,6 +192,16 @@ var switchTurn = function switchTurn() {
     turn = 'O';
   } else if (turn == 'O') {
     turn = 'X';
+  }
+};
+
+var currentPlayer = function currentPlayer() {
+  if (turn == 'X') {
+    playerX === null || playerX === void 0 ? void 0 : playerX.classList.add('active-player');
+    playerO === null || playerO === void 0 ? void 0 : playerO.classList.remove('active-player');
+  } else {
+    playerX === null || playerX === void 0 ? void 0 : playerX.classList.remove('active-player');
+    playerO === null || playerO === void 0 ? void 0 : playerO.classList.add('active-player');
   }
 };
 
@@ -214,7 +230,6 @@ var getBoxes = function getBoxes() {
     }
   }
 
-  console.log(boxesContent);
   return boxesContent;
 };
 
@@ -248,7 +263,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53232" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65534" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
