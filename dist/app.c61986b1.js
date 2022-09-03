@@ -120,18 +120,105 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 })({"app.ts":[function(require,module,exports) {
 "use strict";
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 var gameBoard = document.querySelector('#game-board');
+var boxes = document.querySelectorAll('.box');
+var winner = document.querySelector('.winner');
+var button = document.querySelector('.btn');
+var turn = 'X';
 
 var main = function main() {
-  makeGame();
+  playGame();
 };
 
-var makeGame = function makeGame() {
-  var div = document.createElement('div');
-  div.textContent = 'HEllo';
-  console.log(div);
+var playGame = function playGame() {
+  var controller = new AbortController();
+  winner === null || winner === void 0 ? void 0 : winner.classList.add('invisible');
+  console.log('started');
+
+  var _iterator = _createForOfIteratorHelper(boxes),
+      _step;
+
+  try {
+    var _loop = function _loop() {
+      var box = _step.value;
+      box.textContent = '';
+      box.addEventListener('click', function (e) {
+        var curBox = document.querySelector("#".concat(box.id));
+        if (curBox && curBox.innerText == '') curBox.innerText = turn;
+        var winner = checkWinner();
+        checkBoard();
+        if (!winner) switchTurn();else {
+          wonGame();
+          controller.abort();
+        }
+      }, {
+        signal: controller.signal
+      });
+    };
+
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      _loop();
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
 };
 
+var wonGame = function wonGame() {
+  var winningMsg = document.querySelector('.winner-message');
+  if (winningMsg) winningMsg.textContent = "".concat(turn, " WON THE GAME!!!");
+  winner === null || winner === void 0 ? void 0 : winner.classList.remove('invisible');
+  boxes.forEach(function (elem) {
+    console.log(elem);
+  });
+};
+
+var switchTurn = function switchTurn() {
+  if (turn == 'X') {
+    turn = 'O';
+  } else if (turn == 'O') {
+    turn = 'X';
+  }
+};
+
+var checkWinner = function checkWinner() {
+  var boxes = getBoxes();
+  return boxes[0] == boxes[1] && boxes[1] == boxes[2] && boxes[0] != '' || boxes[3] == boxes[4] && boxes[4] == boxes[5] && boxes[3] != '' || boxes[6] == boxes[7] && boxes[7] == boxes[8] && boxes[6] != '' || boxes[0] == boxes[3] && boxes[3] == boxes[6] && boxes[0] != '' || boxes[1] == boxes[4] && boxes[4] == boxes[7] && boxes[1] != '' || boxes[2] == boxes[5] && boxes[5] == boxes[8] && boxes[2] != '' || boxes[0] == boxes[4] && boxes[4] == boxes[8] && boxes[0] != '' || boxes[2] == boxes[4] && boxes[4] == boxes[6] && boxes[2] != ''; // console.log(boxes)
+};
+
+var checkBoard = function checkBoard() {
+  var boxes = getBoxes();
+  if (boxes.includes('') == true) return;
+  console.log('All boxes filled');
+};
+
+var getBoxes = function getBoxes() {
+  var boxesContent = [];
+
+  for (var i = 0; i <= boxes.length - 1; i++) {
+    var curBox = document.querySelector("#".concat(boxes[i].id));
+    var boxText = curBox === null || curBox === void 0 ? void 0 : curBox.innerText;
+
+    if (boxText == null) {
+      boxesContent.push('');
+    } else {
+      boxesContent.push(boxText);
+    }
+  }
+
+  console.log(boxesContent);
+  return boxesContent;
+};
+
+button === null || button === void 0 ? void 0 : button.addEventListener('click', playGame);
 main();
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -161,7 +248,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49309" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53232" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
