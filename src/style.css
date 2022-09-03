@@ -106,7 +106,7 @@ header div {
     background-color: aqua;
     color: black;
     font-weight: bolder;
-    transition: 1s ease-in-out;
+    transition: .5s ease-in-out;
 }
 
 .winner {

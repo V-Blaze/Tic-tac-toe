@@ -155,13 +155,20 @@ var playGame = function playGame() {
         box.classList.add('no-hover');
         var curBox = document.querySelector("#".concat(box.id));
         if (curBox && curBox.innerText == '') curBox.innerText = turn;
+        var boardFilled = checkBoard();
+
+        if (boardFilled) {
+          controller.abort();
+          gameOver();
+          console.log('Game box is filled');
+        }
+
         var winner = checkWinner();
-        checkBoard();
-        currentPlayer();
         if (!winner) switchTurn();else {
           wonGame();
           controller.abort();
         }
+        currentPlayer();
       }, {
         signal: controller.signal
       });
@@ -185,6 +192,12 @@ var wonGame = function wonGame() {
     // console.log(elem.textContent)
     elem.classList.add('no-hover');
   });
+};
+
+var gameOver = function gameOver() {
+  var winningMsg = document.querySelector('.winner-message');
+  if (winningMsg) winningMsg.textContent = "GAME OVER!!! NO WINNER";
+  winner === null || winner === void 0 ? void 0 : winner.classList.remove('invisible');
 };
 
 var switchTurn = function switchTurn() {
@@ -212,8 +225,7 @@ var checkWinner = function checkWinner() {
 
 var checkBoard = function checkBoard() {
   var boxes = getBoxes();
-  if (boxes.includes('') == true) return;
-  console.log('All boxes filled');
+  return boxes.includes('') !== true;
 };
 
 var getBoxes = function getBoxes() {

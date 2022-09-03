@@ -29,14 +29,21 @@ const playGame = (): void => {
             box.classList.add('no-hover')
             const curBox: HTMLDivElement | null = document.querySelector(`#${box.id}`)
             if(curBox && curBox.innerText == '') curBox.innerText = turn;
+            
+            let boardFilled: boolean = checkBoard()
+            if(boardFilled){
+                controller.abort()
+                gameOver()
+                console.log('Game box is filled')
+            }
+
             let winner: boolean = checkWinner()
-            checkBoard()
-            currentPlayer()
             if(!winner) switchTurn()
             else{
                 wonGame()
                 controller.abort()
             }
+            currentPlayer()
             
         },{signal: controller.signal})
     }
@@ -52,6 +59,12 @@ const wonGame = ():void =>{
         // console.log(elem.textContent)
         elem.classList.add('no-hover')
     })
+}
+
+const gameOver = ():void => {
+    const winningMsg = document.querySelector<HTMLElement>('.winner-message');
+    if(winningMsg) winningMsg.textContent = `GAME OVER!!! NO WINNER`
+    winner?.classList.remove('invisible')
 }
 
 const switchTurn = (): void =>{
@@ -90,11 +103,12 @@ const checkWinner = ():boolean =>{
 
 }
 
-const checkBoard = ():void =>{
+const checkBoard = ():boolean =>{
     const boxes: Array<string> = getBoxes()
 
-    if(boxes.includes('') == true) return
-    console.log('All boxes filled')
+    return (boxes.includes('') !== true) 
+    
+    
 }
 
 const getBoxes = ():Array<string> =>{
